@@ -44,3 +44,6 @@ No installation or build steps required!
 ---
 
 *Live long and prosper! 🖖*
+
+<img width="1867" height="963" alt="Captura de ecrã 2026-10-22 222446" src="https://github.com/user-attachments/assets/7e5951c4-bc30-49c6-ab86-4400de971663" />
+
