@@ -47,3 +47,8 @@ No installation or build steps required!
 
 <img width="1867" height="963" alt="Captura de ecrã 2026-10-22 222446" src="https://github.com/user-attachments/assets/7e5951c4-bc30-49c6-ab86-4400de971663" />
 
+<img width="1866" height="957" alt="Captura de ecrã 2026-10-22 223104" src="https://github.com/user-attachments/assets/fa7b7faf-288f-4456-b671-1e6453a40682" />
+
+<img width="1865" height="951" alt="Captura de ecrã 2026-10-22 222942" src="https://github.com/user-attachments/assets/d2e20c14-9700-4a6e-839e-1df7af0e094f" />
+
+
