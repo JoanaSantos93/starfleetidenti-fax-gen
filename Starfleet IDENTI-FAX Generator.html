@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starfleet IDENTI-FAX Generator</title>
+    <!-- Tailwind CSS for modern responsive layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Retro Sci-Fi / Technical Monospace Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- html2canvas Library for PNG Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Custom CSS for Retro Styling -->
+    <link rel="stylesheet" href="SF-ID.css">
+
+</head>
+<body class="min-h-screen py-8 px-4 sm:px-6 flex flex-col items-center justify-between">
+
+    <!-- Top Header Navigation -->
+    <header class="w-full max-w-5xl mb-6 text-center no-print">
+        <div class="inline-flex items-center gap-2 mb-2">
+            <svg class="w-8 h-8 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 22h20L12 2zm0 4.5l6 12H6l6-12z"/>
+            </svg>
+            <h1 class="text-3xl sm:text-4xl font-vt323 tracking-widest text-amber-500 uppercase">Starfleet Command // IDENTI-FAX System</h1>
+        </div>
+        <p class="text-xs sm:text-sm font-tech text-gray-400">Classified Personnel Dossier Generator • Subspace Thermal Telefax Relay v2.4</p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Controls & Editor Panel (Left side) -->
+        <section class="control-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">
+                    <span>⚙️</span> Dossier Configuration
+                </h2>
+                <button id="audioToggleBtn" class="terminal-btn">
+                    <span id="audioIcon">🔊</span> <span id="audioText">Audio ON</span>
+                </button>
+            </div>
+
+            <!-- Quick Presets -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Select Personnel Preset:</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    <button onclick="loadPreset('spock')" class="btn-preset btn-spock">Spock</button>
+                    <button onclick="loadPreset('mccoy')" class="btn-preset btn-mccoy">Dr. McCoy</button>
+                    <button onclick="loadPreset('captain')" class="btn-preset btn-captain">Captain</button>
+                    <button onclick="loadPreset('scotty')" class="btn-preset btn-scotty">Scotty</button>
+                    <button onclick="resetCustom()" class="btn-preset btn-custom">Clear / Custom</button>
+                </div>
+            </div>
+
+            <!-- Form Inputs -->
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-gray-400 mb-1">Full Name & Rank Title:</label>
+                    <input type="text" id="inputName" value="SPOCK" oninput="updateCard()" class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-amber-300 font-tech focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-gray-400 mb-1">Rank / Position:</label>
+                        <input type="text" id="inputRank" value="SCIENCE OFFICER" oninput="updateCard()" class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-amber-300 font-tech focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1">Serial Number:</label>
+                        <input type="text" id="inputSerial" value="SC-V-231-4798" oninput="updateCard()" class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-amber-300 font-tech focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-gray-400 mb-1">Height (HT):</label>
+                        <input type="text" id="inputHeight" value="187 cm" oninput="updateCard()" class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-amber-300 font-tech focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1">Weight (WT):</label>
+                        <input type="text" id="inputWeight" value="78 kg" oninput="updateCard()" class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-amber-300 font-tech focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+
+                <!-- Image Upload & Preset Image -->
+                <div>
+                    <label class="block text-gray-400 mb-1">Profile Photo Upload / URL:</label>
+                    <div class="flex gap-2">
+                        <input type="file" id="imageFileInput" accept="image/*" onchange="handleImageUpload(event)" class="hidden">
+                        <button onclick="document.getElementById('imageFileInput').click()" class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-300 rounded font-tech text-xs">Upload File</button>
+                        <input type="text" id="inputImageUrl" placeholder="Or paste image URL..." onchange="updateImageFromUrl(this.value)" class="flex-1 bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-amber-300 font-tech focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Identifying Marks -->
+                <div>
+                    <label class="block text-gray-400 mb-1">Identifying Marks & Medical History:</label>
+                    <textarea id="inputMarks" rows="3" oninput="updateCard()" class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-amber-300 font-tech focus:outline-none focus:border-amber-500 leading-tight">SURGICAL LASER SCAR RIGHT SHOULDER (PARTIAL SCAPULA REPLACEMENT); PHASER-2 BURN MARK, LEFT THIGH; SERPENTINE DESIGN INSIDE OF RIGHT BICEPS (VULCAN KAHS-WAN RITUAL MARK.)</textarea>
+                </div>
+            </div>
+
+            <!-- Toggles & Action Buttons -->
+            <div class="pt-3 border-t border-gray-800 space-y-3">
+                <div class="flex flex-wrap gap-2 text-xs font-tech">
+                    <button id="themeToggleBtn" onclick="toggleTheme()" class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-amber-400 border border-gray-700 rounded transition font-tech">📄 Thermal Standard</button>
+                    <button onclick="toggleScanlines()" class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-amber-400 border border-gray-700 rounded transition">📺 Scanline Overlay</button>
+                    <button onclick="generateRandomFingerprints()" class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-amber-400 border border-gray-700 rounded transition">🖐️ Re-Stamp Prints</button>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                   <button onclick="printCard()" class="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-black font-bold font-tech text-sm rounded shadow transition flex items-center justify-center gap-2">
+        <span>🖨️</span> Print / Export IDENTI-FAX
+    </button>
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+    <div class="flex gap-2">
+        <button onclick="downloadCardPNG()" class="flex-1 py-2 bg-amber-600 hover:bg-amber-500 text-black font-bold font-tech text-xs rounded shadow transition flex items-center justify-center gap-1.5">
+            <span>💾</span> Download PNG
+        </button>
+        <button onclick="generateShareLink()" class="flex-1 py-2 bg-gray-800 hover:bg-gray-700 text-amber-400 border border-amber-500/40 font-tech text-xs rounded transition flex items-center justify-center gap-1.5">
+            <span>🔗</span> Share Link
+        </button>
+    </div>
+
+            <!-- Classified Security Seals & Stamps -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Classified Security Stamps:</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="openClassifiedModal('eyesOnly')" class="px-2.5 py-2 bg-red-950/60 hover:bg-red-900 border border-red-700/60 text-red-400 text-xs rounded font-tech font-bold transition flex items-center justify-center gap-1.5 shadow">
+                        <span>🔒</span> EYES ONLY // 01
+                    </button>
+                    <button onclick="openClassifiedModal('intel')" class="px-2.5 py-2 bg-amber-950/60 hover:bg-amber-900 border border-amber-700/60 text-amber-400 text-xs rounded font-tech font-bold transition flex items-center justify-center gap-1.5 shadow">
+                        <span>👁️‍🗨️</span> SECTION 31 LORE
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Display Panel (Right side) -->
+        <section class="lg:col-span-7 flex flex-col items-center">
+            
+            <div class="w-full flex justify-between items-center mb-2 px-1 no-print">
+                <span class="text-xs font-tech text-gray-400">TELEFAX TRANSMISSION PREVIEW</span>
+                <span class="text-xs font-tech text-amber-500 animate-pulse">● SIGNAL ACTIVE</span>
+            </div>
+
+            <!-- ID Card Outer Container -->
+            <div id="cardOuterContainer" class="w-full crt-overlay transition-all">
+                
+                <!-- ID CARD BODY (Printable Target) -->
+                <div id="identiFaxCard" class="fax-paper fax-border p-4 sm:p-6 w-full text-black transition-colors duration-300 preset-spock">
+                    
+                    <!-- Header Bar -->
+                    <div class="border-b-4 border-black pb-2 mb-3 flex justify-between items-end">
+                        <div>
+                            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-none uppercase font-vt323">IDENTI-FAX</h2>
+                            <p class="text-[10px] sm:text-xs font-mono font-bold tracking-widest mt-0.5">STARFLEET PERSONNEL RECORDS BUREAU</p>
+                        </div>
+                        <div class="text-right">
+                            <div id="displaySerial" class="text-sm sm:text-base font-mono font-bold tracking-wider">SC-V-231-4798</div>
+                            <div id="displayNameRank" class="text-xs sm:text-sm font-bold uppercase tracking-wide">SPOCK (NFN) • SCIENCE OFFICER</div>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid: Left Side Profile & Prints, Right Side Main Portrait & Prints -->
+                    <div class="grid grid-cols-12 gap-3 sm:gap-4 pb-3 border-b-2 border-black">
+                        
+                        <!-- Left Column: Side Profile Container + Right Hand Fingerprints -->
+                        <div class="col-span-5 flex flex-col justify-between space-y-2 border-r-2 border-black pr-2 sm:pr-3">
+                            <!-- SIDE PROFILE CONTAINER (CSS Background Image) -->
+                            <div id="profileSideImg" class="profile-side-box relative w-full aspect-square border-2 border-black bg-white overflow-hidden flex items-center justify-center retro-dither">
+                                <span class="absolute bottom-1 left-1 text-[8px] sm:text-[10px] font-mono bg-black text-white px-1 z-10">LATERAL</span>
+                            </div>
+
+                            <!-- Right Hand Fingerprints (R-1 to R-5) -->
+                            <div>
+                                <div class="text-[9px] sm:text-[11px] font-mono font-bold mb-1 tracking-tighter uppercase flex justify-between">
+                                    <span>R-1</span> <span>R-2</span> <span>R-3</span> <span>R-4</span> <span>R-5</span>
+                                </div>
+                                <div class="grid grid-cols-5 gap-0.5 sm:gap-1">
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpR1"></canvas>
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpR2"></canvas>
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpR3"></canvas>
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpR4"></canvas>
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpR5"></canvas>
+                                </div>
+                                <div class="text-[8px] font-mono text-center mt-0.5 tracking-widest font-bold">RIGHT HAND DIGITAL PRINTS</div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Left Hand Fingerprints + Frontal Portrait + Height/Weight -->
+                        <div class="col-span-7 flex flex-col justify-between space-y-2">
+                            
+                            <!-- Left Hand Fingerprints (L-1 to L-5) -->
+                            <div>
+                                <div class="grid grid-cols-5 gap-0.5 sm:gap-1">
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpL1"></canvas>
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpL2"></canvas>
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpL3"></canvas>
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpL4"></canvas>
+                                    <canvas class="fingerprint-canvas w-full h-8 sm:h-10 border border-black bg-white" id="fpL5"></canvas>
+                                </div>
+                                <div class="text-[9px] sm:text-[11px] font-mono font-bold mt-0.5 tracking-tighter uppercase flex justify-between">
+                                    <span>L-1</span> <span>L-2</span> <span>L-3</span> <span>L-4</span> <span>L-5</span>
+                                </div>
+                            </div>
+
+                            <!-- Frontal Portrait and Biometrics -->
+                            <div class="grid grid-cols-12 gap-2 items-end">
+                                <div class="col-span-5 font-mono text-[10px] sm:text-xs space-y-1 font-bold leading-tight">
+                                    <div class="border-b border-black pb-0.5">
+                                        <span class="block text-[8px] opacity-75">HEIGHT</span>
+                                        <span id="displayHeight">187 cm</span>
+                                    </div>
+                                    <div class="border-b border-black pb-0.5">
+                                        <span class="block text-[8px] opacity-75">WEIGHT</span>
+                                        <span id="displayWeight">78 kg</span>
+                                    </div>
+                                    <div class="pt-1">
+                                        <span class="block text-[8px] opacity-75">CLEARANCE</span>
+                                        <span>LEVEL 1-A</span>
+                                    </div>
+                                </div>
+                                <div class="col-span-7">
+                                    <!-- FRONTAL PORTRAIT CONTAINER (CSS Background Image) -->
+                                    <div id="profileFrontImg" class="profile-front-box relative w-full aspect-[4/5] border-2 border-black bg-white overflow-hidden retro-dither">
+                                        <span class="absolute bottom-1 right-1 text-[8px] sm:text-[10px] font-mono bg-black text-white px-1 z-10">FRONTAL</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Bottom Section: Identifying Marks -->
+                    <div class="mt-3">
+                        <h3 class="text-xs sm:text-sm font-bold font-mono tracking-widest text-center border-b border-black pb-0.5 uppercase mb-1.5">
+                            IDENTIFYING MARKS & MEDICAL ANOMALIES
+                        </h3>
+                        <p id="displayMarks" class="font-mono text-[10px] sm:text-xs leading-relaxed font-bold tracking-tight text-justify uppercase min-h-[45px]">
+                            SURGICAL LASER SCAR RIGHT SHOULDER (PARTIAL SCAPULA REPLACEMENT); PHASER-2 BURN MARK, LEFT THIGH; SERPENTINE DESIGN INSIDE OF RIGHT BICEPS (VULCAN KAHS-WAN RITUAL MARK.)
+                        </p>
+                    </div>
+
+                    <!-- Footer Stamp / Authentication -->
+                    <div class="mt-3 pt-2 border-t-2 border-black flex justify-between items-center text-[8px] sm:text-[10px] font-mono">
+                        <div>AUTHENTICATION: SF-CMD-9021-A</div>
+                        <div class="border border-black px-2 py-0.5 font-bold uppercase tracking-widest">VERIFIED DISPATCH</div>
+                        <div>PAGE 01 OF 01</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <p class="text-xs font-tech text-gray-500 mt-4 text-center no-print">
+                💡 Tip: Click on any fingerprint box to regenerate a custom dithered biometrics print stamp!
+            </p>
+
+        </section>
+
+    </main>
+
+            <!-- Classified Modal Popup Container -->
+    <div id="classifiedModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 no-print">
+        <div class="bg-gray-950 border-2 border-amber-500/80 rounded-lg max-w-lg w-full p-6 shadow-2xl relative text-amber-300 font-mono space-y-4 animate-in fade-in zoom-in duration-200">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b border-amber-500/40 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="animate-pulse">🔴</span>
+                    <h3 id="modalTitle" class="text-lg font-bold font-vt323 tracking-widest uppercase">CLASSIFIED DISPATCH</h3>
+                </div>
+                <button onclick="closeClassifiedModal()" class="text-amber-500 hover:text-white font-bold text-sm px-2 py-0.5 border border-amber-500/40 hover:border-amber-500 rounded">[ESC]</button>
+            </div>
+            <!-- Modal Body Content -->
+            <div id="modalBody" class="text-xs sm:text-sm leading-relaxed text-gray-300 space-y-2 uppercase">
+                <!-- Dynamically populated via JS -->
+            </div>
+            <!-- Modal Footer -->
+            <div class="pt-3 border-t border-amber-500/40 flex justify-between items-center text-[10px] text-amber-500/70">
+                <span>STARFLEET SECURITY PROTOCOL 4-G</span>
+                <button onclick="closeClassifiedModal()" class="px-3 py-1 bg-amber-600 hover:bg-amber-500 text-black font-bold rounded">ACKNOWLEDGE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-5xl text-center text-xs text-gray-600 font-tech mt-8 no-print border-t border-gray-800 pt-4">
+        STARFLEET COMPUTER DIVISION • EARTH STATION LISBON (2026) • USS ENTERPRISE NCC-1701 LOGICAL ARCHIVE • © 2265-2269 STARFLEET COMMAND • ALL RIGHTS RESERVED
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+     
+    <!-- Custom JavaScript for Application Logic -->
+    <script src="SF-ID.js"></script>   
+</body>
+</html>

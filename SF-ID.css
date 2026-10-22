@@ -1,0 +1,402 @@
+
+        /* Custom retro styling */
+        :root {
+            --paper-bg: #e6e3da;
+            --ink-color: #1a1a1a;
+            --blueprint-bg: #0a192f;
+            --blueprint-ink: #64ffda;
+        }
+
+        /* body {
+            font-family: 'Courier Prime', monospace;
+            background-color: #15130f;
+            color: #d1d5db;
+            background-image: ("IMG/SCANLINES UI - Cópia.png");
+        }
+        */
+
+        body {
+    font-family: 'Courier Prime', monospace;
+    color: #d1d5db;
+    /* Layer 1: Dark translucent tint / Layer 2: Your main background GIF */
+    background: 
+        linear-gradient(rgba(21, 19, 15, 0.82), rgba(21, 19, 15, 0.82)), 
+        url('GIF/star-trek-enterprise.gif') center/cover no-repeat; 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Keeps the background locked in place while scrolling */
+}
+
+        .font-vt323 { font-family: 'VT323', monospace; }
+        .font-tech { font-family: 'Share Tech Mono', monospace; }
+
+        /* --- Control & Editor Panel Styling --- */
+.control-panel {
+    grid-column: span 5 / span 5; /* Equivalent to lg:col-span-5 */
+    /* background-color: #111827;     /* Equivalent to bg-gray-950 or custom dark terminal bg */
+    background: 
+        linear-gradient(rgba(17, 24, 39, 0.88), rgba(17, 24, 39, 0.88)), 
+        url('GIF/crttvblue.gif') center/cover no-repeat;
+    border: 1px solid #1f2937;     /* border-gray-800 */
+    border-radius: 0.75rem;        /* rounded-xl */
+    padding: 1.25rem;              /* p-5 */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;                  /* space-y-5 */
+}
+
+.panel-header {
+    border-bottom: 1px solid #1f2937;
+    padding-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #fbbf24; /* amber-400 */
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.terminal-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.25rem;
+    background-color: #1f2937;
+    color: #d1d5db;
+    border: 1px solid #374151;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+}
+
+.terminal-btn:hover {
+    background-color: #374151;
+    color: #ffffff;
+}
+
+        /* Button Styles */
+        /* Base Preset Button Styling */
+.btn-preset {
+    padding: 0.375rem 0.5rem; /* Equivalent to px-2 py-1.5 */
+    border-radius: 0.25rem;    /* Equivalent to rounded */
+    border: 1px solid #374151; /* Default dark border */
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;        /* text-xs */
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 🔵 Science / Command Officer: Spock (Science Blue) */
+.btn-spock {
+    background-color: #1e293b;
+    color: #38bdf8;
+    border-color: #0284c7;
+}
+.btn-spock:hover {
+    background-color: #0284c7;
+    color: #ffffff;
+}
+
+/* 🟢 Medical / Sciences: Dr. McCoy (Teal / Medical Cyan) */
+.btn-mccoy {
+    background-color: #134e4a;
+    color: #2dd4bf;
+    border-color: #0d9488;
+}
+.btn-mccoy:hover {
+    background-color: #0d9488;
+    color: #ffffff;
+}
+
+/* 🟡 Command Division: Captain Kirk (Command Gold / Amber) */
+.btn-captain {
+    background-color: #451a03;
+    color: #fbbf24;
+    border-color: #d97706;
+}
+.btn-captain:hover {
+    background-color: #d97706;
+    color: #000000;
+}
+
+/* 🔴 Engineering Division: Scotty (Operations Red) */
+.btn-scotty {
+    background-color: #450a0a;
+    color: #f87171;
+    border-color: #dc2626;
+}
+.btn-scotty:hover {
+    background-color: #dc2626;
+    color: #ffffff;
+}
+
+/* ⚪ Neutral / Utility: Clear & Custom */
+.btn-custom {
+    background-color: #1f2937;
+    color: #d1d5db;
+    border-color: #4b5563;
+}
+.btn-custom:hover {
+    background-color: #4b5563;
+    color: #ffffff;
+}
+
+/*End Button Styles*/
+
+/* Base styles for the profile image boxes */
+.profile-front-box,
+.profile-side-box {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* --- SPOCK IMAGES --- */
+#identiFaxCard.preset-spock .profile-front-box {
+    background-image: url('IMG/leonard-nimoy-.jpg');
+}
+#identiFaxCard.preset-spock .profile-side-box {
+    background-image: url('IMG/SPOCK\ SIDE\ PROFILE.jpg');
+}
+
+/* --- MCCOY IMAGES --- */
+#identiFaxCard.preset-mccoy .profile-front-box {
+    background-image: url('IMG/BONES\ FRONT\ PROFILE.jpeg');
+}
+#identiFaxCard.preset-mccoy .profile-side-box {
+    background-image: url('IMG/BONES\ SIDE\ PROFILE.jpg');
+}
+
+/* --- CAPTAIN KIRK IMAGES --- */
+#identiFaxCard.preset-captain .profile-front-box {
+    background-image: url('IMG/kirk-william-shatner.jpg');
+}
+#identiFaxCard.preset-captain .profile-side-box {
+    background-image: url('IMG/KIRK\ SIDE\ PROFILE 1.jpg');
+}
+
+/* --- SCOTTY IMAGES --- */
+#identiFaxCard.preset-scotty .profile-front-box {
+    background-image: url('IMG/SCOTTY\ FRONT\ PROFILE.jpg');
+}
+#identiFaxCard.preset-scotty .profile-side-box {
+    background-image: url('IMG/SCOTTY\ SIDE\ PROFILE.jpg');
+}
+
+        /* Thermal Fax Paper Texture */
+        .fax-paper {
+            background-color: var(--paper-bg);
+            color: var(--ink-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+            background-image: radial-gradient(#d1cdb8 1px, transparent 0);
+            background-size: 12px 12px;
+            position: relative;
+        }
+
+        /* Subtle Noise Overlay */
+        .fax-paper::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.03),
+                rgba(0,0,0,0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+        }
+
+        /* Blueprint Mode Alternate Style */
+        .blueprint-mode {
+            background-color: #0f223d !important;
+            color: #88ccff !important;
+            border-color: #3b82f6 !important;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px) !important;
+            background-size: 16px 16px !important;
+        }
+        .blueprint-mode .fax-border {
+            border-color: #60a5fa !important;
+        }
+        .blueprint-mode img {
+            filter: grayscale(100%) contrast(150%) sepia(100%) hue-rotate(180deg) saturate(300%) !important;
+        }
+
+        /* CRT Scanline Toggle */
+        .crt-overlay {
+            position: relative;
+            overflow: hidden;
+        }
+        .crt-overlay::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+            background-size: 100% 4px;
+            z-index: 20;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .fax-border {
+            border: 3px solid #1a1a1a;
+        }
+
+        .fax-border-thin {
+            border: 1px solid #1a1a1a;
+        }
+
+        /* High contrast image processing for high threshold retro look */
+        .retro-dither {
+            filter: grayscale(100%) contrast(220%) brightness(90%);
+            mix-blend-mode: multiply;
+        }
+
+        /* Dither Canvas Fingerprint Styling */
+        canvas.fingerprint-canvas {
+            filter: contrast(300%);
+        }
+
+        /* Print styling override */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .fax-paper {
+                box-shadow: none !important;
+                border: 2px solid black !important;
+                width: 100% !important;
+                max-width: 800px !important;
+                margin: 0 auto !important;
+            }
+        }
+
+        /* -------------------------------------------------------------
+   THEME 2: CYBERPUNK MATRIX GREEN
+------------------------------------------------------------- */
+
+.matrix-mode {
+    background-color: #030a05 !important;
+    color: #22c55e !important;
+    border-color: #15803d !important;
+    background-image: 
+        linear-gradient(rgba(34, 197, 94, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 197, 94, 0.08) 1px, transparent 1px) !important;
+    background-size: 12px 12px !important;
+}
+.matrix-mode border,
+.matrix-mode .fax-border,
+.matrix-mode div,
+.matrix-mode h2,
+.matrix-mode h3,
+.matrix-mode p,
+.matrix-mode span {
+    border-color: #16a34a !important;
+}
+.matrix-mode img {
+    filter: grayscale(100%) contrast(200%) sepia(100%) hue-rotate(85deg) saturate(600%) !important;
+    mix-blend-mode: normal !important;
+}
+.matrix-mode canvas.fingerprint-canvas {
+    filter: contrast(300%) sepia(100%) hue-rotate(85deg) saturate(600%) !important;
+}
+
+/* -------------------------------------------------------------
+   THEME 3: VULCAN RED / FORGE DEEP SUN
+------------------------------------------------------------- */
+.vulcan-mode {
+    background-color: #2a0b0b !important;
+    color: #fca5a5 !important;
+    border-color: #b91c1c !important;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.12) 0%, transparent 70%),
+        linear-gradient(rgba(220, 38, 38, 0.1) 1px, transparent 1px) !important;
+    background-size: 100% 100%, 20px 20px !important;
+}
+.vulcan-mode border,
+.vulcan-mode .fax-border,
+.vulcan-mode div,
+.vulcan-mode h2,
+.vulcan-mode h3,
+.vulcan-mode p,
+.vulcan-mode span {
+    border-color: #dc2626 !important;
+}
+.vulcan-mode img {
+    filter: grayscale(100%) contrast(200%) sepia(100%) hue-rotate(320deg) saturate(500%) !important;
+    mix-blend-mode: normal !important;
+}
+.vulcan-mode canvas.fingerprint-canvas {
+    filter: contrast(300%) sepia(100%) hue-rotate(320deg) saturate(500%) !important;
+}
+
+/* Classified Modal Terminal Styling */
+#classifiedModal {
+    background-color: rgba(3, 7, 18, 0.85);
+}
+#classifiedModal > div {
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.15);
+    background-image: linear-gradient(rgba(245, 158, 11, 0.02) 1px, transparent 1px);
+    background-size: 100% 4px;
+}
+
+/* Subspace Transmission Print / Scan Animation */
+@keyframes transmissionScan {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.transmitting::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(245, 158, 11, 0.25) 50%,
+        rgba(245, 158, 11, 0.8) 98%,
+        transparent 100%
+    );
+    border-bottom: 2px solid #f59e0b;
+    pointer-events: none;
+    z-index: 30;
+    animation: transmissionScan 0.6s ease-in-out forwards;
+}
+
+/* Ensure the card container can clip the absolute scanner line */
+#identiFaxCard {
+    position: relative;
+    overflow: hidden;
+}
